@@ -5,7 +5,9 @@
 To run this app you will need typescript compiler and npm/node installed and setup.
 
 To install node run `sudo apt-get install nodejs`
+
 To install npm run `sudo apt-get install npm`
+
 To install typescript run `npm install -g typescript`
 
 
@@ -21,6 +23,4 @@ If you don't have `typings` module installed, install it first using `npm i typi
 
 `typings install`
 
-`tsc`
-
-`sails lift`
+`npm start`

@@ -1,0 +1,146 @@
+<div class="container">
+  <div class="user_registration">
+    <form [formGroup]="userForm" (ngSubmit)="saveData(userForm.value)">
+      <h1>User registration</h1>
+      <div class="user_detail_one">
+        
+        <div class="form-group">
+          
+          <label>Full name</label>
+          <input type="text" placeholder="Full Name" name="full_name" formControlName="full_name" (focus)="full_name_focused=true" (focusout)="full_name_focused=fasle">
+          
+          <div *ngIf="full_name_focused">
+            <small>Lorem ipsum dolor sit amet</small>
+          </div>
+          
+          <div *ngIf="userForm.controls['full_name'].invalid  && userForm.controls['full_name'].touched">
+            <p class="has-error">Please Enter full name</p>
+          </div>
+        
+        </div>  
+        
+        <div class="form-group">
+
+          <label>Email</label>
+          <input type="email"  placeholder="Email Address" formControlName="email" (focus)="email_focused=true" (focusout)="email_focused=fasle">
+
+          <div *ngIf="email_focused">
+            <small>Lorem ipsum dolor sit amet</small>
+          </div>
+
+          <div *ngIf="userForm.controls['email'].errors  && userForm.controls['email'].touched">
+            <p class="has-error" *ngIf="userForm.controls['email'].errors.required">Please Enter email address</p>
+            <p class="has-error" *ngIf="userForm.controls['email'].errors.pattern">Please Enter valid email address</p>
+          </div>
+         
+        </div>
+
+        <div class="form-group">
+          
+          <label>City <span>optional</span></label>
+          <input type="text"  placeholder="City" formControlName="city" (focus)="city_focused=true" (focusout)="city_focused=fasle">
+          
+          <div *ngIf="city_focused">
+            <small>Lorem ipsum dolor sit amet</small>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="user_detail_two">
+        <div class="form-group">
+          
+          <label>Ride in group?</label>
+          <div class="radio_user">
+            
+            <label>
+              <input type="radio" (focus)="ride_focused=true" (focusout)="ride_focused=fasle" value="Always" formControlName="ride_in_group" >
+              <span></span> <p>Always</p>
+            </label>
+            
+            <label>
+              <input type="radio" (focus)="ride_focused=true" (focusout)="ride_focused=fasle" value="Sometimes" formControlName="ride_in_group" >
+              <span></span> <p>Sometimes</p>
+            </label>
+            
+            <label>
+              <input type="radio" (focus)="ride_focused=true" (focusout)="ride_focused=fasle" value="Never" formControlName="ride_in_group" >
+              <span></span> <p>Never</p>
+            </label>
+
+            <div *ngIf="ride_focused">
+              <small>Lorem ipsum dolor sit amet</small>
+            </div>
+            
+            <div *ngIf="userForm.controls['ride_in_group'].invalid  && userForm.controls['ride_in_group'].touched">
+              <p class="has-error">Please select ride in group</p>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="form-group">
+          
+          <label>Days of the week</label>
+          <div class="checkbox_user">
+
+            <label *ngFor="let day of days_arr;let i=index;">
+              <input type="checkbox" name="days" value="{{day.name}}" [checked]="day.selected" [(ngModel)]="day.selected" [ngModelOptions]="{standalone: true}" (change)="onChange(day.name, $event.target.checked)" (focus)="days_focused=true; days_error=true" (focusout)="days_focused=fasle">
+              <span><i class="fas fa-check"></i></span><p>{{day.name}}</p>
+            </label>
+            
+            <div *ngIf="days_focused">
+              <small>Lorem ipsum dolor sit amet</small>
+            </div>
+
+            <div *ngIf="days_error && userForm.controls['days'].invalid">
+              <p class="has-error">Please select days</p>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="form-group user-form-btn">
+          <button type="button" class="btn cancel_btn">Cancel</button>
+          <button type="submit" class="btn save_btn" [disabled]="!userForm.valid">Save</button>
+        </div>
+      
+      </div>
+    </form>
+  </div>
+</div>
+<div class="clear"></div>
+<div class="container">
+  <div class="error-message" *ngIf="show_error">
+    <p>{{show_error}}</p>
+  </div>
+  <div class="biker_sec">
+    <h1>Biker</h1>
+    <table class="biker_table" cellpadding="0" cellspacing="0">
+      <thead>
+        <tr>
+          <th>Full Name</th>
+          <th>E-mail</th>
+          <th>City</th>
+          <th>Ride in group</th>
+          <th>Days of the week</th>
+          <th colspan="2">Registration day</th>
+        </tr>
+      </thead>
+      <tbody>  
+        <tr *ngFor="let user of users; let i = index;">
+          <td>{{user.full_name}}</td>
+          <td>{{user.email}}</td> 
+          <td>{{user.city}}</td>
+          <td>{{user.ride_in_group}}</td>
+          <td>{{user.days | weekdays}}</td>
+          <td>{{user.createdAt | date: 'dd/MM/yyyy h:mm a'}}</td>
+          <td class='delet_icon'><a href="javascript:void(0);" (click)='deleteUser(user, i);'><i class='far fa-trash-alt'></i></a></td>
+        </tr>
+        <tr *ngIf="users.length == 0">
+          <td colspan="7">No Record Found</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
