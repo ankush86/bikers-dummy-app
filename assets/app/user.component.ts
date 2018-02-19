@@ -52,7 +52,8 @@ export class UserComponent implements OnInit {
     );
   }
 
-  fillData() {
+  // if there is no data then fill some data into database
+  fillData() { 
     this.userService.fillData()
     .subscribe(
       response => {
