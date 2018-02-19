@@ -18,4 +18,8 @@ constructor(private http:Http) { }
   deleteUser(id: number) {
     return this.http.delete('/api/users/'+id).map((res: Response) => res.json()); 
   }
+
+  fillData() {
+    return this.http.get('/api/fillData').map((res: Response) => res.json()); 
+  }
 }

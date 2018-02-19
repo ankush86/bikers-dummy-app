@@ -377,6 +377,10 @@ button {
     }
     td {
       padding: 15px;
+      span {
+        color: #888;
+        font-size: 0.75em;
+      }
     }
     .delet_icon {
       opacity: 0;

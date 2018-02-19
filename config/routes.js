@@ -40,6 +40,7 @@ module.exports.routes = {
   'post /api/user': 'UserController.create',
   'GET /api/users': 'UserController.findAll',
   'DELETE /api/users/:id': 'UserController.delete',
+  'GET /api/fillData': 'UserController.fillData',
 
   /***************************************************************************
   *                                                                          *

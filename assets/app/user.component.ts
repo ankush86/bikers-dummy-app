@@ -34,12 +34,26 @@ export class UserComponent implements OnInit {
       'ride_in_group': [null, Validators.required],
       'days': this.fb.array([], Validators.required)
     });
-
-    this.getUsers();
+    this.fillData();
   }
 
   getUsers() {
     this.userService.getUsers()
+    .subscribe(
+      response => {
+        if(response.status == 200) {
+          this.users = response.data;
+        } 
+      },
+      error => {
+        this.show_error = error;
+        return Observable.throw(error);
+      }
+    );
+  }
+
+  fillData() {
+    this.userService.fillData()
     .subscribe(
       response => {
         if(response.status == 200) {
